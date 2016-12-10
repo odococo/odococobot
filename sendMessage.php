@@ -113,10 +113,10 @@
   }
 
   function processMessage($message) {
-    // process incoming message
+    // processo il contenuto del messaggio ricevuto da telegram
     $message_id = $message['message_id'];
     $chat_id = $message['chat']['id'];
-    if (isset($message['text'])) {
+    if(isset($message['text'])) {
       // incoming text message
       $text = $message['text'];
 
@@ -138,7 +138,7 @@
   }
 
 
-  define('WEBHOOK_URL', 'https://odococobot.byethost22.com/sendMessage.php');
+  define('WEBHOOK_URL', 'https://odococobot.herokuapp.com/sendMessage');
 
   if (php_sapi_name() == 'cli') {
     // if run from console, set or delete webhook
@@ -146,18 +146,22 @@
   exit;
   }
 
-
+  // recupero il contenuto inviato da Telegram
   $content = file_get_contents("php://input");
+  
+  // converto il contenuto da JSON ad array php
   $update = json_decode($content, true);
+  
+  
   var_dump($content);
   var_dump($update);
-
-  if (!$update) {
-    // receive wrong update, must not happen
+  
+  // se la richiesta è null interrompo lo script
+  if(!$update) {
     exit;
   }
 
-  if (isset($update["message"])) {
+  if(isset($update["message"])) {
     processMessage($update["message"]);
   }
 ?>
