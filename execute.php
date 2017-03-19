@@ -28,8 +28,8 @@ if(strpos($text, "/start") === 0) {
 } elseif($text == "domanda 2") {
 	$response = "risposta 2";
 } elseif($message['forward_from']) {
-  $forward_date = date($message['forward_date']);
-  $response = "Messaggio inoltrato da {$messagge['forward_from']['username']} il {$forward_date}";
+  $forward_date = date(DATE_RFC2822, $message['forward_date']);
+  $response = "Messaggio inoltrato da {$message['forward_from']['username']} il {$forward_date}";
 } else {
 	$response = "Comando non valido!";
 }
