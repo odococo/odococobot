@@ -34,3 +34,5 @@ if(strpos($text, "/start") === 0) {
 $parameters = array('chat_id' => $chatId, "text" => $response . print_r($update, true));
 $parameters["method"] = "sendMessage";
 echo json_encode($parameters);
+echo json_encode($parameters);
+?>
