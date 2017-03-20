@@ -1,5 +1,5 @@
 <?php
-
+echo "ok";
   $botToken = "262354959:AAGZbji0qOxQV-MwzzRqiWJYdPVzkqrbC4Y";
   $website = "https://api.telegram.org/bot".$botToken;
   //$content = file_get_contents("php://input");
@@ -41,4 +41,3 @@
   $parameters["reply_markup"] = '{ "keyboard": [["domanda 1"], ["domanda 2"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
   //$commands = array($parameters, $parameters);
   echo json_encode($parameters);
-?>
