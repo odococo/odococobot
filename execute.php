@@ -43,4 +43,5 @@ $parameters['method'] = "sendMessage";
 $parameters["reply_markup"] = '{ "keyboard": [["uno"], ["due"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
 $parameters['text'] .= print_r(json_encode($parameters), true);
 file_get_contents($website."/sendmessage?chat_id=".$chatId."&text=".$text);
+file_get_contents($website."/sendmessage?chat_id=".$chatId."&text=".$response);
 ?>
