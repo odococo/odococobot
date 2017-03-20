@@ -35,9 +35,12 @@
   } else {
 	  $response = "Comando non valido!";
   }
-
-  $parameters = array('chat_id' => $chatId, 'text' => $response . print_r($update, true));
+  $commands = array();
+  $parameters = array_push($commands, array('chat_id' => $chatId, 'text' => $response . print_r($update, true)));
   $parameters['method'] = "sendMessage";
   $parameters["reply_markup"] = '{ "keyboard": [["domanda 1"], ["domanda 2"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
-  echo json_encode($parameters);
+  $parameters = array_push($commands, array('chat_id' => $chatId, 'text' => $response . print_r($update, true)));
+  $parameters['method'] = "sendMessage";
+  $parameters["reply_markup"] = '{ "keyboard": [["domanda 1"], ["domanda 2"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
+  echo json_encode($commands);
 ?>
