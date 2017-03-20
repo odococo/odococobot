@@ -36,9 +36,9 @@
 	  $response = "Comando non valido!";
   }
   $commands = array();
-  $parameters = array('chat_id' => $chatId, 'text' => $response . print_r($update, true) . $content);
+  $parameters = array('chat_id' => $chatId, 'text' => $response . print_r($update, true));
   $parameters['method'] = "sendMessage";
   $parameters["reply_markup"] = '{ "keyboard": [["domanda 1"], ["domanda 2"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
   array_push($commands, $parameters, $parameters);
-  echo json_encode($parameters);
+  echo json_encode($commands);
 ?>
