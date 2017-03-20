@@ -1,6 +1,7 @@
 <?php
 
 $botToken = "262354959:AAGZbji0qOxQV-MwzzRqiWJYdPVzkqrbC4Y";
+$website = "https://api.telegram.org/bot".$botToken;
 
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
@@ -22,7 +23,7 @@ $text = isset($message['text']) ? $message['text'] : "";
 $text = trim($text);
 $text = strtolower($text);
 
-header("Content-Type: application/json");
+//header("Content-Type: application/json");
 
 if(strpos($text, "/start") === 0) {
 	$response = "Ciao $firstname, benvenuto!";
@@ -41,16 +42,5 @@ $parameters = array('chat_id' => $chatId, 'text' => $response);
 $parameters['method'] = "sendMessage";
 $parameters["reply_markup"] = '{ "keyboard": [["uno"], ["due"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
 $parameters['text'] .= print_r(json_encode($parameters), true);
-sendMessage($parameters['chat_id'], $parameters['text'], $website);
-/*echo json_encode($parameters);
-$parameters['text'] = print_r($update, true);
-echo json_encode($parameters);*/
-
-function sendMessage($chatID, $messaggio, $token) {
-    echo "sending message to " . $chatID . "\n";
-
-    $url = "https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $chatID;
-    $url = $url . "&text=" . urlencode($messaggio);
-    file_get_contents($url);
-}
+file_get_contents($website."/sendmessage?chat_id=".$chatId."&text=".$text);
 ?>
