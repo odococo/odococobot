@@ -38,6 +38,6 @@
   $parameters = array('chat_id' => $chatId, 'text' => $response . print_r($update, true));
   $parameters['method'] = "sendMessage";
   $parameters["reply_markup"] = '{ "keyboard": [["domanda 1"], ["domanda 2"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
-  $commands = array($parameters, $parameters);
-  echo json_encode($commands);
+  //$commands = array($parameters, $parameters);
+  echo json_encode($parameters);
 ?>
