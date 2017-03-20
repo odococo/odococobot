@@ -39,6 +39,5 @@
   $parameters = array('chat_id' => $chatId, 'text' => $response);
   $parameters['method'] = "sendMessage";
   $parameters["reply_markup"] = '{ "keyboard": [["uno"], ["due"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
-  $parameters['text'] .= print_r(json_encode($parameters), true);
   echo json_encode($parameters);
 ?>
