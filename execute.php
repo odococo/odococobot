@@ -36,7 +36,24 @@ if(strpos($text, "/start") === 0) {
 
 $parameters = array('chat_id' => $chatId, 'text' => $response);
 $parameters['method'] = "sendMessage";
-echo json_encode($parameters);
+$parameters["reply_markup"] = '{ "keyboard": [["uno"], ["due"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
+//sendMessage($parameters['chat_id'], $parameters['text'], )
+echo json_encode($parameters . print_r(json_encode($parameters)));
 $parameters['text'] = print_r($update, true);
 echo json_encode($parameters);
+
+function sendMessage($chatID, $messaggio, $token) {
+    echo "sending message to " . $chatID . "\n";
+
+    $url = "https://api.telegram.org/" . $token . "/sendMessage?chat_id=" . $chatID;
+    $url = $url . "&text=" . urlencode($messaggio);
+    $ch = curl_init();
+    $optArray = array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true
+    );
+    curl_setopt_array($ch, $optArray);
+    $result = curl_exec($ch);
+    curl_close($ch);
+}
 ?>
