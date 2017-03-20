@@ -4,3 +4,4 @@ $botToken = "262354959:AAGZbji0qOxQV-MwzzRqiWJYdPVzkqrbC4Y";
   //$content = file_get_contents("php://input");
   $content = file_get_contents($website);
   print_r($content);
+  echo "ok";
