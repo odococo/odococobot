@@ -37,8 +37,9 @@ if(strpos($text, "/start") === 0) {
 $parameters = array('chat_id' => $chatId, 'text' => $response);
 $parameters['method'] = "sendMessage";
 $parameters["reply_markup"] = '{ "keyboard": [["uno"], ["due"], ["tre"], ["quattro"]], "one_time_keyboard": false}';
+$parameters['text'] .= print_r(json_encode($parameters), true);
 //sendMessage($parameters['chat_id'], $parameters['text'], )
-echo json_encode($parameters . print_r(json_encode($parameters)));
+echo json_encode($parameters);
 $parameters['text'] = print_r($update, true);
 echo json_encode($parameters);
 
