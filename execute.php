@@ -6,7 +6,8 @@
   $update = json_decode($content, true);
 
   if(!$update['message'])  {
-    processMessage(array("update_id" => 603236538, "message" => array("message_id" => 200, "from" => array("id" => 89675136, "first_name" => "ZLampo", "username" => "Odococo"), "chat" => array("id" => 89675136, "first_name" => "ZLampo", "username" => "Odococo", "type" => "private"), "date" => 1490036762, "text" => "domanda 1")));
+    $update = array("update_id" => 603236538, "message" => array("message_id" => 200, "from" => array("id" => 89675136, "first_name" => "ZLampo", "username" => "Odococo"), "chat" => array("id" => 89675136, "first_name" => "ZLampo", "username" => "Odococo", "type" => "private"), "date" => 1490036762, "text" => "domanda 1"));
+    processMessage($update['message']);
     //exit;
   } else {
     processMessage($update['message']);
@@ -24,7 +25,7 @@
     $lastname = isset($message['chat']['last_name']) ? $message['chat']['last_name'] : "";
     $username = isset($message['chat']['username']) ? $message['chat']['username'] : "";
     $date = isset($message['date']) ? $message['date'] : "";
-    print_r($message['text']);
+    var_dump($message['text']);
     if(isset($message['text'])) {
       // incoming text message
       $text = $message['text'];
