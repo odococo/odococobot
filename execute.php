@@ -6,7 +6,7 @@
   $update = json_decode($content, true);
 
   if(!$update['message'])  {
-    processMessage('{"update_id":603236538,"message":{"message_id":200,"from":{"id":89675136,"first_name":"ZLampo","username":"Odococo"},"chat":{"id":89675136,"first_name":"ZLampo","username":"Odococo","type":"private"},"date":1490036762,"text":"domanda 1"}}');
+    processMessage(json_decode('{"update_id":603236538,"message":{"message_id":200,"from":{"id":89675136,"first_name":"ZLampo","username":"Odococo"},"chat":{"id":89675136,"first_name":"ZLampo","username":"Odococo","type":"private"},"date":1490036762,"text":"domanda 1"}}', true));
     //exit;
   } else {
     processMessage($update['message']);
