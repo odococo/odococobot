@@ -35,6 +35,7 @@
           'resize_keyboard' => true)));
       } elseif($text == "domanda 1") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
+	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
       } elseif($text == "domanda 2") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 2"));
       } elseif($message['forward_from']) {
