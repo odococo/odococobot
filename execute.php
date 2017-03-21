@@ -18,22 +18,17 @@
    */
   function processMessage($message) {
     // processo il contenuto del messaggio ricevuto da telegram
-    $message_id = isset($message['message_id']) ? $message['message_id'] : "";
+    /*$message_id = isset($message['message_id']) ? $message['message_id'] : "";
     $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
     $firstname = isset($message['chat']['first_name']) ? $message['chat']['first_name'] : "";
     $lastname = isset($message['chat']['last_name']) ? $message['chat']['last_name'] : "";
     $username = isset($message['chat']['username']) ? $message['chat']['username'] : "";
-    $date = isset($message['date']) ? $message['date'] : "";
+    $date = isset($message['date']) ? $message['date'] : "";*/
     if(isset($message['text'])) {
       // incoming text message
       $text = $message['text'];
-      
-      if(strpos($text, "/start") === 0) {
-	      apiRequestJson("sendMessage", array('chat_id' => $chat_id, 'text' => "Hello", 'reply_markup' => array(
-          'keyboard' => array(array("Hello", "Hi")),
-          'one_time_keyboard' => true,
-          'resize_keyboard' => true)));
-        apiRequest("sendMessage", array('chat_id' => 89675136, 'text' => "Nuovo utente: {$username}"));
+      if(isset($message['entities'])) {
+        botCommands($message);
       } elseif($text == "domanda 1") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
       } elseif($text == "domanda 2") {
@@ -46,6 +41,24 @@
       } else {
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido"));
       }
+    }
+  }
+  
+  /*
+   * Gestisco i comandi del bot
+   */
+  function botCommands($message) {
+    $username = isset($message['chat']['username']) ? $message['chat']['username'] : "";
+    $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
+    $text = isset($message['text']) ? $message['text'] : "";
+    if(strpos($text, "/start") === 0) {
+      apiRequestJson("sendMessage", array('chat_id' => $chat_id, 'text' => "Hello", 'reply_markup' => array(
+          'keyboard' => array(array("Hello", "Hi")),
+          'one_time_keyboard' => true,
+          'resize_keyboard' => true)));
+      apiRequest("sendMessage", array('chat_id' => 89675136, 'text' => "Nuovo utente: {$username}"));
+    } elseif(strpos($text, "/webhookinfo")) {
+      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => apiRequest("getWebhookInfo", array())));
     }
   }
   
@@ -112,7 +125,6 @@
    */
   function exec_curl_request($handle) {
     $response = curl_exec($handle);
-    var_dump($response);
 
     if($response === false) {
       $errno = curl_errno($handle);
@@ -143,6 +155,5 @@
       }
       $response = $response['result'];
     }
-    var_dump($response);
     return $response;
   }
