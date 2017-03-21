@@ -41,10 +41,10 @@
       } elseif($message['forward_from']) {
         $forward_date = date(DATE_RFC2822, $message['forward_date']);
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Messaggio inoltrato da {$message['forward_from']['username']} il {$forward_date}"));
-      } else if(strpos($text, "#") >= 0) {
+      } else if(strpos($text, "#")) {
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => print_r($message, true)));
       } else {
-        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando non valido"));
+        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido"));
       }
     }
   }
