@@ -58,8 +58,10 @@
           'one_time_keyboard' => true,
           'resize_keyboard' => true)));
       apiRequest("sendMessage", array('chat_id' => 89675136, 'text' => "Nuovo utente: {$username}"));
-    } elseif(strpos($text, "/webhookinfo")) {
+    } elseif(strpos($text, "/webhookinfo") === 0) {
       apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => apiRequest("getWebhookInfo", array())));
+    } else {
+      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido"));
     }
   }
   
