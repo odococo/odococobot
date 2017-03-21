@@ -27,6 +27,7 @@
     if(isset($message['text'])) {
       // incoming text message
       $text = $message['text'];
+      $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
       if(isset($message['entities'])) {
         botCommands($message);
       } elseif($text == "domanda 1") {
