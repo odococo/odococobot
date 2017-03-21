@@ -33,14 +33,16 @@
           'keyboard' => array(array("Hello", "Hi")),
           'one_time_keyboard' => true,
           'resize_keyboard' => true)));
+        apiRequest("sendMessage", array('chat_id' => 89675136, 'text' => "Nuovo utente: {$username}"));
       } elseif($text == "domanda 1") {
-	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
       } elseif($text == "domanda 2") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 2"));
       } elseif($message['forward_from']) {
         $forward_date = date(DATE_RFC2822, $message['forward_date']);
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Messaggio inoltrato da {$message['forward_from']['username']} il {$forward_date}"));
+      } else if(strpos($text, "#") >= 0) {
+        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => print_r($message, true)));
       } else {
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando non valido"));
       }
