@@ -18,8 +18,8 @@
    */
   function processMessage($message) {
     // processo il contenuto del messaggio ricevuto da telegram
-    $messageId = isset($message['message_id']) ? $message['message_id'] : "";
-    $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
+    $message_id = isset($message['message_id']) ? $message['message_id'] : "";
+    $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
     $firstname = isset($message['chat']['first_name']) ? $message['chat']['first_name'] : "";
     $lastname = isset($message['chat']['last_name']) ? $message['chat']['last_name'] : "";
     $username = isset($message['chat']['username']) ? $message['chat']['username'] : "";
