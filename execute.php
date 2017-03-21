@@ -17,7 +17,6 @@
    * Gestisco la richiesta al bot
    */
   function processMessage($message) {
-    print_r($message);
     // processo il contenuto del messaggio ricevuto da telegram
     $messageId = isset($message['message_id']) ? $message['message_id'] : "";
     $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
@@ -25,7 +24,6 @@
     $lastname = isset($message['chat']['last_name']) ? $message['chat']['last_name'] : "";
     $username = isset($message['chat']['username']) ? $message['chat']['username'] : "";
     $date = isset($message['date']) ? $message['date'] : "";
-    var_dump($message['text']);
     if(isset($message['text'])) {
       // incoming text message
       $text = $message['text'];
@@ -111,6 +109,7 @@
    */
   function exec_curl_request($handle) {
     $response = curl_exec($handle);
+    var_dump($response);
 
     if($response === false) {
       $errno = curl_errno($handle);
@@ -141,6 +140,6 @@
       }
       $response = $response['result'];
     }
-
+    var_dump($response);
     return $response;
   }
