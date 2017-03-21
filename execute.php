@@ -16,6 +16,7 @@
    * Gestisco la richiesta al bot
    */
   function processMessage($message) {
+    print_r($message);
     // processo il contenuto del messaggio ricevuto da telegram
     $messageId = isset($message['message_id']) ? $message['message_id'] : "";
     $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
