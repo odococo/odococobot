@@ -32,7 +32,7 @@
         $forward_date = date(DATE_RFC2822, $message['forward_date']);
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Messaggio inoltrato da {$message['forward_from']['username']} il {$forward_date}"));
       } else {
-        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido"));
+        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Testo {$text} non valido"));
       }
     }
   }
@@ -56,7 +56,7 @@
     } elseif(strpos($text, "/webhookinfo") === 0) {
       apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => apiRequest("getWebhookInfo", array())));
     } else {
-      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido"));
+      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido " . print_r($message, true)));
     }
   }
   
