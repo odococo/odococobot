@@ -1,6 +1,5 @@
 <?php
-  define('BOT_TOKEN', '262354959:AAGZbji0qOxQV-MwzzRqiWJYdPVzkqrbC4Y');
-  define('API_URL', 'https://api.telegram.org/bot' . BOT_TOKEN . '/');
+  require('info.php');
   
   $content = file_get_contents("php://input");
   $update = json_decode($content, true);
@@ -18,27 +17,20 @@
    */
   function processMessage($message) {
     // processo il contenuto del messaggio ricevuto da telegram
-    /*$message_id = isset($message['message_id']) ? $message['message_id'] : "";
-    $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
-    $firstname = isset($message['chat']['first_name']) ? $message['chat']['first_name'] : "";
-    $lastname = isset($message['chat']['last_name']) ? $message['chat']['last_name'] : "";
-    $username = isset($message['chat']['username']) ? $message['chat']['username'] : "";
-    $date = isset($message['date']) ? $message['date'] : "";*/
     if(isset($message['text'])) {
-      // incoming text message
       $text = $message['text'];
       $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
-      if(isset($message['entities'])) {
+      if(strpos($text, "#")) { // se voglio un messaggio informativo riguardante il messaggio ricevuto (il json del messaggio)
+        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => print_r($message, true)));
+      } elseif(isset($message['entities'])) { // se il messaggio inizia/contiene(?) /<text> telegram associa un campo entities
         botCommands($message);
       } elseif($text == "domanda 1") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
       } elseif($text == "domanda 2") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 2"));
-      } elseif($message['forward_from']) {
+      } elseif($message['forward_from']) { // se il messaggio è inoltrato il json del messaggio avrà questo campo
         $forward_date = date(DATE_RFC2822, $message['forward_date']);
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Messaggio inoltrato da {$message['forward_from']['username']} il {$forward_date}"));
-      } else if(strpos($text, "#")) {
-        apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => print_r($message, true)));
       } else {
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido"));
       }
@@ -58,6 +50,9 @@
           'one_time_keyboard' => true,
           'resize_keyboard' => true)));
       apiRequest("sendMessage", array('chat_id' => 89675136, 'text' => "Nuovo utente: {$username}"));
+      $file = fopen("utenti.json", "a") or die("Unable to open file!");
+      fwrite($file, json_encode(array("username" => $username, "chat_id" => $chat_id)));
+      fclose($file);
     } elseif(strpos($text, "/webhookinfo") === 0) {
       apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => apiRequest("getWebhookInfo", array())));
     } else {
