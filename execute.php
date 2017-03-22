@@ -22,7 +22,7 @@
       $chat_id = isset($message['chat']['id']) ? $message['chat']['id'] : "";
       if(strpos($text, "#")) { // se voglio un messaggio informativo riguardante il messaggio ricevuto (il json del messaggio)
         apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => print_r($message, true)));
-      } elseif(isset($message['entities'])) { // se il messaggio inizia/contiene(?) /<text> telegram associa un campo entities
+      } elseif(isset($message['entities']) && $message['entities']['type'] == "bot_command") { // se il messaggio inizia/contiene(?) /<text> telegram associa un campo entities
         botCommands($message);
       } elseif($text == "domanda 1") {
 	      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Risposta 1"));
@@ -56,7 +56,7 @@
     } elseif(strpos($text, "/webhookinfo") === 0) {
       apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => apiRequest("getWebhookInfo", array())));
     } else {
-      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido " . print_r($message, true)));
+      apiRequest("sendMessage", array('chat_id' => $chat_id, 'text' => "Comando {$text} non valido "));
     }
   }
   
